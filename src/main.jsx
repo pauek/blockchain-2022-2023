@@ -16,5 +16,5 @@ const datos = [
 ];
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <App datos={datos} />
+  <App datos={datos} title="Lisssssta de Usuarios" value={5} />
 );

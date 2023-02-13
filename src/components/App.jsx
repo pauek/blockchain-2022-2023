@@ -1,16 +1,13 @@
-import User from "./User";
+import TextoExtra from "./TextoExtra";
+import UserList from './UserList';
 
 export default function App(props) {
-  let title = "Lista de Usuarios";
-  let extra = true;
   return (
     <section>
-      <h1>{title}</h1>
-      <input type="text" value={"hola".repeat(3) + "!!"} />
-      {extra && <p>Este es el texto extra</p>}
-      <div>
-        {props.datos.map(user => <User user={user} />)}
-      </div>
+      <h1>{props.title}</h1>
+      <input type="text" value={props.value} />
+      <TextoExtra activo={true} />
+      <UserList users={props.datos} />
     </section>
   );
 };
