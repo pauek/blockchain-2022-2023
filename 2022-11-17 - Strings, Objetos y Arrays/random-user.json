@@ -1,0 +1,44 @@
+{
+  "results": [
+    {
+      "gender": "male",
+      "name": { "title": "Mr", "first": "Andy", "last": "Ritschel" },
+      "location": {
+        "street": { "number": 8403, "name": "Kirchweg" },
+        "city": "Laufen",
+        "state": "Bayern",
+        "country": "Germany",
+        "postcode": 73395,
+        "coordinates": { "latitude": "-51.0796", "longitude": "-105.3042" },
+        "timezone": { "offset": "+3:30", "description": "Tehran" }
+      },
+      "email": "andy.ritschel@example.com",
+      "login": {
+        "uuid": "0b9d871b-0f91-413d-8657-fba3d0716de2",
+        "username": "greenladybug985",
+        "password": "gentle",
+        "salt": "b0Kggn2r",
+        "md5": "493c68120019038373a4ad79a41102f9",
+        "sha1": "40b666419b7d62360d1b8dacb7f6d648cc8b3e6b",
+        "sha256": "a20f83c3b69b8536b48951bf4e57e0724710e80029476d3a0e740994fd8b5f10"
+      },
+      "dob": { "date": "1986-05-19T05:08:27.570Z", "age": 36 },
+      "registered": { "date": "2015-03-01T02:12:08.861Z", "age": 7 },
+      "phone": "0804-1489139",
+      "cell": "0170-6181476",
+      "id": { "name": "SVNR", "value": "64 190586 R 253" },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/22.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/22.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/22.jpg"
+      },
+      "nat": "DE"
+    }
+  ],
+  "info": {
+    "seed": "92307d1a356e3f1a",
+    "results": 1,
+    "page": 1,
+    "version": "1.4"
+  }
+}

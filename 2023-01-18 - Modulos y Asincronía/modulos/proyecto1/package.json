@@ -1,0 +1,9 @@
+{
+  "name": "proyecto1",
+  "version": "0.0.1",
+  "main": "principal.js",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^2.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "titulo": "Star Wars: The Force Awakens",
+  "año": 2019,
+  "actores": [
+    {
+      "nombre": "kasjdkasdjf",
+      "papel": "Darth Vader"
+    },
+    {
+      "nombre": "laskjdlaf ",
+      "papel": "Obi Wan Kenobi"
+    }
+  ],
+  "box_office": {
+    "EEUU": 10000000,
+    "Europa": 500000,
+    "Asia": 24283748
+  }
+}

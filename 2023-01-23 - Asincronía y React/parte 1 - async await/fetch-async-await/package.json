@@ -1,0 +1,13 @@
+{
+  "name": "fetch-async-await",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "fetch-asyncawait.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  }
+}
