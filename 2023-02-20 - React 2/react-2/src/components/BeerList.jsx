@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Beer from './Beer';
 
-const initialBeerList = [
+const testBeerList = [
   {
     name: "Blanquita",
     tagline: "Lo vas a flipar",
@@ -15,7 +15,17 @@ const initialBeerList = [
 ];
 
 const BeerList = () => {
-  const [beerList, setBeerList] = useState(initialBeerList);
+  const [beerList, setBeerList] = useState(null);
+
+  const loadBeers = async () => {
+    const response = await fetch(`https://api.punkapi.com/v2/beers`);
+    const loadedBeerList = await response.json();
+    setBeerList(loadedBeerList);
+  }
+
+  useEffect(() => {
+    loadBeers();
+  }, []);
 
   if (beerList === null) {
     return <div>Loading...</div>;
