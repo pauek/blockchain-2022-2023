@@ -9,6 +9,10 @@ function App() {
   return (
     <div>
       <Counter incr={5} />
+      <Counter incr={3} />
+      <Counter incr={2} />
+      <BombillaTextual />
+      <BombillaTextual />
       <BombillaTextual />
       <Beer name="Blanquita" price={2.7} />
       <Beer name="Negrita" price={2.9} />
