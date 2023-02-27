@@ -1,0 +1,10 @@
+.beer-list {
+  padding: 1rem;
+}
+.beer-list ol {
+  padding: 0;
+  margin: 0;
+}
+.beer-list form {
+  margin-bottom: 2rem;
+}

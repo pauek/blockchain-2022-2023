@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Beer from "./Beer";
+import SearchForm from "./SearchForm";
+import "./BeerList.css";
 
 const BeerList = () => {
-  const [page, setPage] = useState(1);
   const [beerList, setBeerList] = useState(null);
 
-  const nextPage = () => setPage(c => c + 1);
-
-  const loadBeers = async () => {
+  const searchBeers = async (query) => {
     const response = await fetch(
-      `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`
+      `https://api.punkapi.com/v2/beers?beer_name=${query}&per_page=20`
     );
     const loadedBeerList = await response.json();
     setBeerList(loadedBeerList);
   };
 
-  useEffect(() => {
-    loadBeers();
-  }, [page]);
-
-  if (beerList === null) {
-    return <div>Loading...</div>;
+  let list = <div>No beers.</div>;
+  if (beerList) {
+    list = <ol className="beer-list">
+      {beerList.map((beer) => (
+        <Beer key={beer.id} beer={beer} />
+      ))}
+    </ol>
   }
   return (
     <div className="beer-list">
-      <button onClick={nextPage}>Next Page ({page})</button>
-      <ol className="beer-list">
-        {beerList.map((beer) => (
-          <Beer beer={beer} />
-        ))}
-      </ol>
+      <SearchForm onQuery={searchBeers} />
+      {list}
     </div>
   );
 };
