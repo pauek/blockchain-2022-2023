@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Beer from "./Beer";
+import "./BeerSearch.css";
 import SearchForm from "./SearchForm";
-import "./BeerList.css";
 
-const BeerList = () => {
+const BeerSearch = () => {
   const [beerList, setBeerList] = useState(null);
 
   const searchBeers = async (query) => {
@@ -30,4 +30,4 @@ const BeerList = () => {
   );
 };
 
-export default BeerList;
+export default BeerSearch;

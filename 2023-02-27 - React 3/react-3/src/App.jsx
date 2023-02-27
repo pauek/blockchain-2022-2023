@@ -1,10 +1,10 @@
 import "./App.css";
-import BeerList from "./components/BeerList";
+import BeerSearch from "./components/BeerSearch";
 
 // Los componentes son funciones *puras*
 
 function App() {
-  return <BeerList />;
+  return <BeerSearch />;
 }
 
 export default App;
