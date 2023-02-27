@@ -1,0 +1,13 @@
+.beer-details {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.beer-details img {
+  height: 80vh;
+  margin-right: 2rem;
+}
+.beer-details .info {
+  max-width: 30rem;
+}
