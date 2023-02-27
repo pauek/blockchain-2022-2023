@@ -1,8 +1,11 @@
 import React from 'react'
+import BeerSearch from '../components/BeerSearch'
 
 const SearchPage = () => {
   return (
-    <div>SearchPage</div>
+    <div>
+      <BeerSearch />
+    </div>
   )
 }
 
