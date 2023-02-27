@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import './BeerDetailsPage.css';
-import { loadBeer } from '../api';
+import * as api from '../api';
 
 const BeerDetailsPage = () => {
   const { id } = useParams();
   const [beer, setBeer] = useState(null);
 
   useEffect(() => {
-    loadBeer(id).then(setBeer);
+    api.loadBeer(id).then(setBeer);
   }, [id]);
 
   if (beer === null) {
