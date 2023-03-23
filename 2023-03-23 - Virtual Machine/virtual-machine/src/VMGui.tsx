@@ -1,5 +1,5 @@
 
-function App() {
+function VMGui() {
   return (
     <div className="App">
       Virtual Machines
@@ -7,4 +7,4 @@ function App() {
   )
 }
 
-export default App
+export default VMGui
