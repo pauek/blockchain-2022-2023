@@ -1,9 +1,12 @@
+import { opcodes } from "./opcode-table";
+
+type ArithFunction = (a: number, b: number) => number;
 
 export class VM {
   #ip: number;
   #code: Array<number>;
   #stack: Array<any>;
-  #status: "halted" | "running";
+  #status: "halted" | "running" | "error";
 
   constructor() {
     this.#ip = 0;
@@ -18,7 +21,7 @@ export class VM {
       code: this.#code,
       stack: structuredClone(this.#stack),
       status: this.#status,
-    }
+    };
   }
 
   get status() {
@@ -31,13 +34,65 @@ export class VM {
     this.#status = "running";
   }
 
+  reset() {
+    this.#ip = 0;
+    this.#status = "running";
+  }
+
   step() {
+    const next = () => this.#ip++;
+
+    const arithmetic = (fn: ArithFunction) => {
+      const a = this.#stack.pop();
+      const b = this.#stack.pop();
+      this.#stack.push(fn(a, b));
+      next();
+    };
+
+    if (this.#status !== "running") {
+      return;
+    }
     const opcode = this.#code[this.#ip];
     switch (opcode) {
-      case 0: { // HALT
+      case opcodes.HALT: {
+        // HALT
         this.#status = "halted";
-        this.#ip++;
+        next();
         break;
+      }
+      case opcodes.PUSH: {
+        // PUSH
+        next();
+        const value = this.#code[this.#ip];
+        next();
+        this.#stack.push(value);
+        break;
+      }
+      case opcodes.POP: {
+        next();
+        this.#stack.pop();
+        break;
+      }
+
+      case opcodes.ADD:
+        arithmetic((a, b) => a + b);
+        break;
+      case opcodes.MUL:
+        arithmetic((a, b) => a * b);
+        break;
+      case opcodes.SUB:
+        arithmetic((a, b) => a - b);
+        break;
+      case opcodes.DIV:
+        arithmetic((a, b) => a / b);
+        break;
+      case opcodes.MOD:
+        arithmetic((a, b) => a % b);
+        break;
+        
+      default: {
+        this.#status = "error";
+        console.error(`UNIMPLEMENTED OPCODE (${opcode})`);
       }
     }
   }
@@ -47,7 +102,8 @@ export class VM {
       this.step();
     }
     if (this.#stack.length > 0) {
-      return this.#stack.pop();
+      const result = this.#stack.slice(-1)[0];
+      return result;
     } else {
       return null;
     }
