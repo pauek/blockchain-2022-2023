@@ -12,6 +12,15 @@ export class VM {
     this.#status = "halted";
   }
 
+  snapshot() {
+    return {
+      ip: this.#ip,
+      code: this.#code,
+      stack: structuredClone(this.#stack),
+      status: this.#status,
+    }
+  }
+
   get status() {
     return this.#status;
   }
