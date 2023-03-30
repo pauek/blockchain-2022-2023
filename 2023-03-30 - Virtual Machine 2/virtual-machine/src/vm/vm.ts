@@ -1,6 +1,6 @@
 import { opcodes } from "./opcode-table";
 
-type ArithFunction = (a: number, b: number) => number;
+type BinaryFunction = (a: number, b: number) => number | boolean;
 
 export type OutputFunction = (value: any) => void;
 export class VM {
@@ -48,12 +48,20 @@ export class VM {
   step() {
     const next = () => this.#ip++;
 
-    const arithmetic = (fn: ArithFunction) => {
+    const binop = (fn: BinaryFunction) => {
       const a = this.#stack.pop();
       const b = this.#stack.pop();
       this.#stack.push(fn(a, b));
       next();
     };
+
+    const jump = (dest: number) => {
+      if (dest < 0 || dest >= this.#code.length) {
+        this.#status = "error";
+      } else {
+        this.#ip = dest;
+      }
+    }
 
     if (this.#status !== "running") {
       return;
@@ -81,21 +89,61 @@ export class VM {
       }
 
       case opcodes.ADD:
-        arithmetic((a, b) => a + b);
+        binop((a, b) => a + b);
         break;
       case opcodes.MUL:
-        arithmetic((a, b) => a * b);
+        binop((a, b) => a * b);
         break;
       case opcodes.SUB:
-        arithmetic((a, b) => a - b);
+        binop((a, b) => a - b);
         break;
       case opcodes.DIV:
-        arithmetic((a, b) => a / b);
+        binop((a, b) => a / b);
         break;
       case opcodes.MOD:
-        arithmetic((a, b) => a % b);
+        binop((a, b) => a % b);
         break;
 
+      case opcodes.LT:
+        binop((a, b) => a < b);
+        break;
+      case opcodes.GT:
+        binop((a, b) => a > b);
+        break;
+      case opcodes.EQ:
+        binop((a, b) => a === b);
+        break;
+      case opcodes.AND:
+        binop((a, b) => a && b);
+        break;
+      case opcodes.OR:
+        binop((a, b) => a || b);
+        break;
+      case opcodes.XOR:
+        binop((a, b) => (a || b) && !(a && b));
+        break;
+      case opcodes.NOT: {
+        const a = this.#stack.pop();
+        this.#stack.push(!a);
+        next();
+        break;
+      }
+
+      case opcodes.JUMP: {
+        const dest = this.#stack.pop();
+        jump(dest);
+        break;
+      }
+      case opcodes.JUMPI: {
+        const dest = this.#stack.pop();
+        const cond = this.#stack.pop();
+        if (cond) {
+          jump(dest);
+        } else {
+          next();
+        }
+        break;
+      }
 
       case opcodes.OUTPUT: {
         const top = this.#stack.pop();
@@ -106,7 +154,6 @@ export class VM {
         break;
       }
 
-        
       default: {
         this.#status = "error";
         console.error(`UNIMPLEMENTED OPCODE (${opcode})`);

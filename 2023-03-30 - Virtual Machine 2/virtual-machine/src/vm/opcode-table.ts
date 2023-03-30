@@ -15,6 +15,17 @@ export const operations = [
   _op(0x04, "DIV"),
   _op(0x05, "MOD"),
 
+  _op(0x10, "LT"),
+  _op(0x11, "GT"),
+  _op(0x14, "EQ"),
+  _op(0x16, "AND"),
+  _op(0x17, "OR"),
+  _op(0x18, "XOR"),
+  _op(0x19, "NOT"),
+
+  _op(0x56, "JUMP"),
+  _op(0x57, "JUMPI"),
+
   _op(0xFF, "OUTPUT"),
 ];
 

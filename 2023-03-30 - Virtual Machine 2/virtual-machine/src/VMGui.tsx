@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { assemble } from "./vm/assembler";
-import { testMod } from "./vm/programs";
+import { testIf1, testMayor, testXor } from "./vm/programs";
 import { virtualMachine } from "./vm/vm";
 
 function VMGui() {
-  const [result, setResult] = useState(null);
   const [snapshot, setSnapshot] = useState(virtualMachine.snapshot());
   const [output, setOutput] = useState("");
 
   useEffect(() => {
-    virtualMachine.load(assemble(testMod));
+    virtualMachine.load(assemble(testIf1));
     virtualMachine.setOutputFunc((val) => {
       setOutput(prevOutput => prevOutput + `${val}\n`);
     });
@@ -24,7 +23,6 @@ function VMGui() {
   const run = () => {
     const res = virtualMachine.run();
     setSnapshot(virtualMachine.snapshot());
-    setResult(res);
   };
 
   const reset = () => {
