@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { assemble } from "./vm/assembler";
-import { testIf1, testLoop1, testMayor, testXor } from "./vm/programs";
+import { testLoop1 } from "./vm/programs";
 import { virtualMachine } from "./vm/vm";
 
 function VMGui() {
@@ -33,21 +33,27 @@ function VMGui() {
 
   return (
     <div className="App">
-      <div>{snapshot.status}</div>
-      <div>
+      <div className="buttons">
+        <button onClick={step}>Step</button>
+        <button onClick={run}>Run</button>
+        <button onClick={reset}>Reset</button>
+      </div>
+      <div className="status">{snapshot.status}</div>
+      <div className="code">
         {snapshot.code.map((byte, i) => (
           <span key={i} className={"byte" + (i === snapshot.ip ? " curr" : "")}>
             {byte}
           </span>
         ))}
       </div>
-      <div>
-        stack: <code>{JSON.stringify(snapshot.stack)}</code>
+      <div className="row">
+        <div id="stack">
+          {snapshot.stack.map((value: number) => (
+            <div className="value">{value}</div>
+          ))}
+        </div>
+        <pre id="output">{output}</pre>
       </div>
-      <button onClick={step}>Step</button>
-      <button onClick={run}>Run</button>
-      <button onClick={reset}>Reset</button>
-      <pre className="output">{output}</pre>
     </div>
   );
 }

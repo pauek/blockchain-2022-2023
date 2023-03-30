@@ -1,9 +1,10 @@
-pre.output {
-  height: 15rem;
+pre#output {
+  height: 20rem;
   background-color: lightgray;
   overflow-y: scroll;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: .3rem .4rem;
+  margin: 0;
 }
 span.byte {
   font-size: 12pt;
@@ -16,4 +17,33 @@ span.byte {
 }
 span.byte.curr {
   outline: 3px solid black;
+}
+div.row {
+  display: flex;
+  flex-direction: row;
+}
+#output {
+  flex: 1;
+}
+#stack {
+  width: 5rem;
+  padding: .2rem;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  border: 2px solid black;
+  border-top: none;
+  margin-right: .2rem;
+  
+}
+.value {
+  border: 1px solid black;
+  margin-bottom: .2rem;
+  text-align: center;
+  font-family: monospace;
+  font-size: 12pt;
+  background-color: white;
+}
+.code {
+  margin-bottom: 1rem;
 }
