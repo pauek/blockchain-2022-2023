@@ -10,7 +10,7 @@ function VMGui() {
   useEffect(() => {
     virtualMachine.load(assemble(testIf1));
     virtualMachine.setOutputFunc((val) => {
-      setOutput(prevOutput => prevOutput + `${val}\n`);
+      setOutput((prevOutput) => prevOutput + `${val}\n`);
     });
     setSnapshot(virtualMachine.snapshot());
   }, []);
@@ -33,10 +33,13 @@ function VMGui() {
 
   return (
     <div className="App">
-      <div>{snapshot.ip}</div>
       <div>{snapshot.status}</div>
       <div>
-        code: <code>{JSON.stringify(snapshot.code)}</code>
+        {snapshot.code.map((byte, i) => (
+          <span className={"byte" + (i === snapshot.ip ? " curr" : "")}>
+            {byte}
+          </span>
+        ))}
       </div>
       <div>
         stack: <code>{JSON.stringify(snapshot.stack)}</code>
