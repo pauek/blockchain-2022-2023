@@ -43,6 +43,7 @@ export class VM {
   reset() {
     this.#ip = 0;
     this.#status = "running";
+    this.#stack = [];
   }
 
   step() {
@@ -61,7 +62,14 @@ export class VM {
       } else {
         this.#ip = dest;
       }
-    }
+    };
+
+    const dup = (n: number) => {
+      const pos = this.#stack.length - n;
+      const value = this.#stack[pos];
+      this.#stack.push(value);
+      next();
+    };
 
     if (this.#status !== "running") {
       return;
@@ -144,6 +152,22 @@ export class VM {
         }
         break;
       }
+
+      case opcodes.DUP1:
+        dup(1);
+        break;
+      case opcodes.DUP2:
+        dup(2);
+        break;
+      case opcodes.DUP3:
+        dup(3);
+        break;
+      case opcodes.DUP4:
+        dup(4);
+        break;
+      case opcodes.DUP5:
+        dup(5);
+        break;
 
       case opcodes.OUTPUT: {
         const top = this.#stack.pop();

@@ -34,3 +34,22 @@ push 99999
 output
 halt
 `
+
+export const testLoop1 = `
+push 30
+push 1
+
+dup2
+dup2
+gt
+push 18
+jumpi
+dup1
+output
+push 1
+add
+push 4
+jump
+
+halt
+`

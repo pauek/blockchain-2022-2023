@@ -26,6 +26,12 @@ export const operations = [
   _op(0x56, "JUMP"),
   _op(0x57, "JUMPI"),
 
+  _op(0x80, "DUP1"),
+  _op(0x81, "DUP2"),
+  _op(0x82, "DUP3"),
+  _op(0x83, "DUP4"),
+  _op(0x84, "DUP5"),
+
   _op(0xFF, "OUTPUT"),
 ];
 

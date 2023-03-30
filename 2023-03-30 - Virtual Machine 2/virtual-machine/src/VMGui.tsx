@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { assemble } from "./vm/assembler";
-import { testIf1, testMayor, testXor } from "./vm/programs";
+import { testIf1, testLoop1, testMayor, testXor } from "./vm/programs";
 import { virtualMachine } from "./vm/vm";
 
 function VMGui() {
@@ -8,7 +8,7 @@ function VMGui() {
   const [output, setOutput] = useState("");
 
   useEffect(() => {
-    virtualMachine.load(assemble(testIf1));
+    virtualMachine.load(assemble(testLoop1));
     virtualMachine.setOutputFunc((val) => {
       setOutput((prevOutput) => prevOutput + `${val}\n`);
     });
