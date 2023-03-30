@@ -33,7 +33,7 @@ div.row {
   justify-content: flex-start;
   border: 2px solid black;
   border-top: none;
-  margin-right: .2rem;
+  margin-right: .5rem;
   
 }
 .value {
@@ -46,4 +46,13 @@ div.row {
 }
 .code {
   margin-bottom: 1rem;
+}
+.editor-area {
+  display: flex;
+  flex-direction: column;
+  margin-right: .5rem;
+}
+#editor {
+  flex: 1;
+  font-size: 11pt;
 }

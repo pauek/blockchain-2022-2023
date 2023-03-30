@@ -1,19 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, ChangeEventHandler } from "react";
 import { assemble } from "./vm/assembler";
-import { testLoop1 } from "./vm/programs";
+import programTable, { isPrime, testLoop1 } from "./vm/programs";
 import { virtualMachine } from "./vm/vm";
 
 function VMGui() {
   const [snapshot, setSnapshot] = useState(virtualMachine.snapshot());
   const [output, setOutput] = useState("");
+  const textRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    virtualMachine.load(assemble(testLoop1));
     virtualMachine.setOutputFunc((val) => {
       setOutput((prevOutput) => prevOutput + `${val}\n`);
     });
     setSnapshot(virtualMachine.snapshot());
   }, []);
+
+  const doAssemble = () => {
+    if (textRef.current) {
+      const program = textRef.current.value;
+      virtualMachine.load(assemble(program));
+      setSnapshot(virtualMachine.snapshot());
+    }
+  };
+
+  const loadProgram : ChangeEventHandler<HTMLSelectElement> = (ev) => {
+    if (textRef.current) {
+      const i = programTable.findIndex(({ name }) => name === ev.target.value);
+      textRef.current.value = programTable[i].prog.slice(1);
+    }
+  }
 
   const step = () => {
     virtualMachine.step();
@@ -47,9 +62,20 @@ function VMGui() {
         ))}
       </div>
       <div className="row">
+        <div className="editor-area">
+          <select onChange={loadProgram}>
+            {programTable.map(({ name }) => (
+              <option>{name}</option>
+            ))}
+          </select>
+          <textarea id="editor" ref={textRef}>
+            Code here
+          </textarea>
+          <button onClick={doAssemble}>Assemble</button>
+        </div>
         <div id="stack">
           {snapshot.stack.map((value: number) => (
-            <div className="value">{value}</div>
+            <div className="value">{String(value)}</div>
           ))}
         </div>
         <pre id="output">{output}</pre>
