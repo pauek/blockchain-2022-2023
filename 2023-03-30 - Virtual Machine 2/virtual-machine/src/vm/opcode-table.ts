@@ -46,6 +46,3 @@ for (const op of operations) {
   optable[op.code] = op;
   opcodes[op.name] = op.code;
 }
-
-console.log(optable);
-console.log(opcodes);

@@ -36,7 +36,7 @@ function VMGui() {
       <div>{snapshot.status}</div>
       <div>
         {snapshot.code.map((byte, i) => (
-          <span className={"byte" + (i === snapshot.ip ? " curr" : "")}>
+          <span key={i} className={"byte" + (i === snapshot.ip ? " curr" : "")}>
             {byte}
           </span>
         ))}
