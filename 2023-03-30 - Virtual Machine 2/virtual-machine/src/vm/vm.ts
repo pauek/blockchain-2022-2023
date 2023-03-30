@@ -2,17 +2,23 @@ import { opcodes } from "./opcode-table";
 
 type ArithFunction = (a: number, b: number) => number;
 
+export type OutputFunction = (value: any) => void;
 export class VM {
   #ip: number;
   #code: Array<number>;
   #stack: Array<any>;
   #status: "halted" | "running" | "error";
+  #outputFunc?: OutputFunction;
 
   constructor() {
     this.#ip = 0;
     this.#code = [];
     this.#stack = [];
     this.#status = "halted";
+  }
+
+  setOutputFunc(f: OutputFunction) {
+    this.#outputFunc = f;
   }
 
   snapshot() {
@@ -89,6 +95,17 @@ export class VM {
       case opcodes.MOD:
         arithmetic((a, b) => a % b);
         break;
+
+
+      case opcodes.OUTPUT: {
+        const top = this.#stack.pop();
+        if (this.#outputFunc) {
+          this.#outputFunc(top);
+        }
+        next();
+        break;
+      }
+
         
       default: {
         this.#status = "error";

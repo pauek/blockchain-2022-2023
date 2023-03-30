@@ -14,6 +14,8 @@ export const operations = [
   _op(0x03, "SUB"),
   _op(0x04, "DIV"),
   _op(0x05, "MOD"),
+
+  _op(0xFF, "OUTPUT"),
 ];
 
 

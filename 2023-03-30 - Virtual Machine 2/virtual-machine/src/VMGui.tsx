@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
-import { opcodes } from "./vm/opcode-table";
+import { assemble } from "./vm/assembler";
+import { testMod } from "./vm/programs";
 import { virtualMachine } from "./vm/vm";
 
 function VMGui() {
   const [result, setResult] = useState(null);
   const [snapshot, setSnapshot] = useState(virtualMachine.snapshot());
+  const [output, setOutput] = useState("");
 
   useEffect(() => {
-    virtualMachine.load([
-      opcodes.PUSH,
-      5,
-      opcodes.PUSH,
-      17,
-      opcodes.MOD,
-      opcodes.POP,
-      opcodes.HALT,
-    ]);
+    virtualMachine.load(assemble(testMod));
+    virtualMachine.setOutputFunc((val) => {
+      setOutput(prevOutput => prevOutput + `${val}\n`);
+    });
     setSnapshot(virtualMachine.snapshot());
   }, []);
 
@@ -32,6 +29,7 @@ function VMGui() {
 
   const reset = () => {
     virtualMachine.reset();
+    setOutput("");
     setSnapshot(virtualMachine.snapshot());
   };
 
@@ -48,7 +46,7 @@ function VMGui() {
       <button onClick={step}>Step</button>
       <button onClick={run}>Run</button>
       <button onClick={reset}>Reset</button>
-      <div>Result: {result ?? "<none>"}</div>
+      <pre className="output">{output}</pre>
     </div>
   );
 }
